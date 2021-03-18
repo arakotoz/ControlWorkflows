@@ -1,4 +1,4 @@
-name: phos-compressor-readout-proxy
+name: phos-compressor-internal-dpl-global-binary-file-sink
 defaults:
   log_task_output: none
 control:
@@ -7,16 +7,6 @@ wants:
   cpu: 0.15
   memory: 128
 bind:
-  - name: from_readout-proxy_to_PHOSRawToCellConverterSpec
-    type: push
-    transport: shmem
-    addressing: ipc
-    rateLogging: 10
-  - name: from_readout-proxy_to_dpl-output-proxy
-    type: push
-    transport: shmem
-    addressing: ipc
-    rateLogging: 10
 command:
   shell: true
   log: "{{ log_task_output }}"
@@ -37,7 +27,7 @@ command:
     - "--driver-client-backend"
     - "'stdout://'"
     - "--id"
-    - "'readout-proxy'"
+    - "'internal-dpl-global-binary-file-sink'"
     - "--shm-monitor"
     - "'false'"
     - "--log-color"
@@ -92,9 +82,7 @@ command:
     - "'all'"
     - "--workflow-suffix"
     - "''"
-    - "--end-value-enumeration"
-    - "-1"
-    - "--start-value-enumeration"
-    - "'0'"
-    - "--step-value-enumeration"
-    - "'1'"
+    - "--keep"
+    - "''"
+    - "--outfile"
+    - "'dpl-out.bin'"
