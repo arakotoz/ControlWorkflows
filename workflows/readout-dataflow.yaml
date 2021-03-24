@@ -111,7 +111,7 @@ roles:
             connect:
               - name: downstream
                 type: pull
-                target: "{{ Parent().Path }}.minimal-dpl-wf.dpl-output-proxy:downstream" # we need some automatic way to find out the wf+task name
+                target: "{{ Parent().Path }}.minimal-dpl.dpl-output-proxy:downstream" # we need some automatic way to find out the wf+task name
                 rateLogging: "10"
             task:
               load: stfsender
@@ -207,7 +207,7 @@ roles:
                   rateLogging: 0
                 task:
                   load: stfb-qc-internal-dpl-global-binary-file-sink
-          - name: minimal-dpl-wf
+          - name: minimal-dpl
             enabled: "{{  minimal_dpl_enabled == 'true' || dpl_workflow == 'minimal-dpl' }}"
             defaults:
               dpl_command: >-
