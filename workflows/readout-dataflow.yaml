@@ -128,13 +128,6 @@ roles:
                   trigger: enter_RUNNING
                   timeout: 10s
                   critical: false
-      - name: fairmq-shmmonitor
-        enabled: "{{fmq_cleanup_enabled == 'true'}}"
-        task:
-          load: "fairmq-shmmonitor"
-          trigger: DESTROY
-          timeout: 10s
-          critical: false
       - name: roc-cleanup
         enabled: "{{roc_cleanup_enabled == 'true'}}"
         task:
