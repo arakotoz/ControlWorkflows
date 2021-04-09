@@ -14,7 +14,7 @@ bind:
   - name: dpl-chan
     type: push
     rateLogging: "{{ fmq_rate_logging }}"
-    transport: shmem
+    transport: zeromq
     addressing: ipc
     sndBufSize: "4"
 command:
@@ -27,7 +27,7 @@ command:
     StfBuilder
   arguments:
     - "--session=default"
-    - "--transport=shmem"
+    - "--transport=zeromq"
     - "--detector-rdh={{ rdh_version }}"
     - "--detector-subspec={{ dd_detector_subspec }}"
     - "--severity={{ fmq_severity }}"
