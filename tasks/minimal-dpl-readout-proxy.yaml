@@ -93,3 +93,4 @@ command:
     - "'0'"
     - "--step-value-enumeration"
     - "'1'"
+    - "--no-cleanup"
