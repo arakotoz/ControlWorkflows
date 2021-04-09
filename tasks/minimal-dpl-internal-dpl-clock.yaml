@@ -18,7 +18,7 @@ command:
   user: "{{ user }}"
   value: >-
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load O2 QualityControl Control-OCCPlugin &&
-    {{ dpl_command }} | o2-dpl-raw-proxy
+    {{ dpl_command }} | gdb -ex "run" -ex "thread apply all bt full" -batch --args o2-dpl-raw-proxy
   arguments:
     - "-b"
     - "--monitoring-backend"
