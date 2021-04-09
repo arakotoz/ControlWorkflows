@@ -9,7 +9,7 @@ wants:
 bind:
   - name: downstream
     type: push
-    transport: zeromq
+    transport: shmem
     addressing: ipc
     rateLogging: "{{ fmq_rate_logging }}"
 command:
@@ -62,7 +62,7 @@ command:
     - "--default-port"
     - "'4200'"
     - "--default-transport"
-    - "'zeromq'"
+    - "'shmem'"
     - "--fairmq-ipc-prefix"
     - "'/tmp'"
     - "--fairmq-rate-logging"

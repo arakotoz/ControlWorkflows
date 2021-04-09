@@ -26,7 +26,7 @@ command:
     StfSender
   arguments:
     - "--session=default"
-    - "--transport=zeromq"
+    - "--transport=shmem"
     - "--input-channel-name={{ stfs_input_channel_name }}"
     - "--severity={{ fmq_severity }}"
     - "--severity-infologger={{ infologger_severity }}"
