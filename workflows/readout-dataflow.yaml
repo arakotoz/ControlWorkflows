@@ -8,6 +8,7 @@ defaults:
   minimal_dpl_enabled: "false"
   dpl_workflow: "none" # if specified, we use dpl_worfklow to choose what is between STFB and STFS. Otherwise, we fall to the old choice mechanism.
                        # available options: "none", "qc-daq", "minimal-dpl", "tof-compressor"
+  qc_remote_workflow: "none"
   stfb_standalone: "false"
   odc_enabled: "false"
   odcshim_enabled: "false"
@@ -80,6 +81,7 @@ roles:
         enabled: "{{(qcdd_enabled == 'true' || minimal_dpl_enabled == 'true' || dpl_workflow != 'none') && dd_enabled == 'true'}}"
         defaults:
           path_to_readout_proxy: "{{ Parent().Path }}.data-distribution-dpl.stfb:dpl-chan"
+          path_to_MultiNodeLocal_proxy: "{{ Parent().Path }}.qc-remote-workflow.dpl.qc-remote-MultiNodeLocal-proxy.MultiNodeLocal-proxy"
         roles:
           - name: "stfb"
             enabled: "{{stfb_standalone == 'false'}}"
@@ -114,6 +116,16 @@ roles:
           - name: dpl
             enabled: "{{ dpl_workflow != 'none' }}"
             include: "{{ dpl_workflow }}"
+      - name: qc-remote-workflow
+        enabled: "{{ qc_remote_workflow != 'none' }}"
+        constraints: 
+          - attribute: machine_type
+            value: qcserver
+        vars:
+          path_to_readout: "{{ Parent().Path }}.data-distribution-dpl.dpl.qc-local-rnd-little-proxy.readout"
+        roles:
+          - name: dpl
+            include: "{{ qc_remote_workflow }}"
       - name: o2-roc-ctp-emulators
         enabled: "{{roc_ctp_emulator_enabled == 'true'}}"
         defaults:
