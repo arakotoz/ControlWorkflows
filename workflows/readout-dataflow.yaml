@@ -125,6 +125,7 @@ roles:
           path_to_readout: "{{ Parent().Path }}.data-distribution-dpl.dpl.qc-local-rnd-little-proxy.readout"
         roles:
           - name: dpl
+            enabled: "{{ qc_remote_workflow != 'none' }}"
             include: "{{ qc_remote_workflow }}"
       - name: o2-roc-ctp-emulators
         enabled: "{{roc_ctp_emulator_enabled == 'true'}}"
