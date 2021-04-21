@@ -73,7 +73,7 @@ command:
     - "--clone"
     - "''"
     - "--config"
-    - "'json:///home/pkonopka/alice/multiNodeTest.json'"
+    - "'{{ qc_config_uri }}'"
     - "--fairmq-ipc-prefix"
     - "'/tmp'"
     - "--fairmq-rate-logging"
