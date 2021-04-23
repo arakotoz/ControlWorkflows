@@ -121,6 +121,8 @@ roles:
         constraints: 
           - attribute: machine_type
             value: qcserver
+        defaults:
+          user: qc
         vars:
           path_to_readout: "{{ Parent().Path }}.data-distribution-dpl.dpl.qc-local-rnd-little-proxy.readout"
         roles:
