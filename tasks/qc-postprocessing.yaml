@@ -2,7 +2,7 @@ name: qc-postprocessing # read by workflow
 defaults:
   pp_task_name: "ExampleTrend"
   pp_task_period: "10"
-  user: flp
+  user: qc
   log_task_output: none
 control:
   mode: direct

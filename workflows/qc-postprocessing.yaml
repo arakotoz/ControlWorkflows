@@ -4,6 +4,7 @@ constraints:
     value: qcserver
 defaults:
   log_task_output: none
+  user: qc
   fmq_rate_logging: 0
 roles:
   - name: "qc-postprocessing-role"
