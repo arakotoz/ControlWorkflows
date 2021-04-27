@@ -3,6 +3,7 @@ defaults:
   log_task_output: none
   user: flp
   log: none
+  session_id: "{{ environment_id }}"
 control:
   mode: basic
 wants:
@@ -14,4 +15,4 @@ command:
   user: "{{ user }}"
   value: >-
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load FairMQ &&
-    fairmq-shmmonitor -c
+    fairmq-shmmonitor -c --session {{ session_id }}

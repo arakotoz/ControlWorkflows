@@ -19,7 +19,7 @@ command:
     - "--monitoring-backend"
     - "'{{ monitoring_dpl_url }}'"
     - "--session"
-    - "'default'"
+    - "'{{ session_id }}'"
     - "--infologger-severity"
     - "'{{ infologger_severity }}'"
     - "--infologger-mode"
