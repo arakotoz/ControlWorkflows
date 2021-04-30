@@ -1,7 +1,7 @@
 name: qc-remote
 vars:
   dpl_command: >-
-    o2-qc --config {{ qc_config_uri }} --remote -b
+    cat /etc/flp.d/qc/qc-remote.dpl.json
 defaults:
   qc_config_uri: "consul-json://{{ consul_endpoint }}/o2/components/qc/ANY/any/qc-multinode-test"
   monitoring_dpl_url: "no-op://"
