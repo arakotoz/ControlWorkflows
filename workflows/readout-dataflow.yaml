@@ -81,7 +81,7 @@ roles:
         enabled: "{{(qcdd_enabled == 'true' || minimal_dpl_enabled == 'true' || dpl_workflow != 'none') && dd_enabled == 'true'}}"
         defaults:
           path_to_readout_proxy: "{{ Parent().Path }}.data-distribution-dpl.stfb:dpl-chan"
-          path_to_MultiNodeLocal_proxy: "{{ Parent().Path }}.qc-remote-workflow.dpl.MultiNodeLocal-proxy.MultiNodeLocal-proxy"
+          path_to_MultiNodeLocal_proxy: "{{ Parent().Path }}.qc-remote-workflow.dpl.MultiNodeLocal-proxy:MultiNodeLocal-proxy"
         roles:
           - name: "stfb"
             enabled: "{{stfb_standalone == 'false'}}"
@@ -123,7 +123,7 @@ roles:
             value: qcserver
         vars:
           user: qc
-          path_to_readout: "{{ Parent().Path }}.data-distribution-dpl.dpl.rnd-little-proxy.readout"
+          path_to_readout: "{{ Parent().Path }}.data-distribution-dpl.dpl.rnd-little-proxy:readout"
         roles:
           - name: dpl
             enabled: "{{ qc_remote_workflow != 'none' }}"
