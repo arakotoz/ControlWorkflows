@@ -12,7 +12,6 @@ defaults:
   fmq_severity: info
   scheduler_check_cmd: '{{ ddsched_enabled == "true" ? "curl " + dd_discovery_endpoint + " -fs -o /dev/null &&" : "" }}'
   log_task_output: none
-  session_id: "{{ environment_id }}"
 command:
   env:
     - O2_INFOLOGGER_MODE={{infologger_mode}}
@@ -27,7 +26,7 @@ command:
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load DataDistribution Control-OCCPlugin &&
     StfSender
   arguments:
-    - "--session={{ session_id }}"
+    - "--session=default"
     - "--transport=shmem"
     - "--input-channel-name={{ stfs_input_channel_name }}"
     - "--severity={{ fmq_severity }}"

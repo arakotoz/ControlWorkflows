@@ -7,7 +7,6 @@ defaults:
   fmq_severity: info
   dd_detector_subspec: feeid
   log_task_output: none
-  session_id: "{{ environment_id }}"
 wants:
   cpu: 0.15
   memory: 128
@@ -20,7 +19,7 @@ command:
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load DataDistribution Control-OCCPlugin &&
     StfBuilder
   arguments:
-    - "--session={{ session_id }}"
+    - "--session=default"
     - "--transport=shmem"
     - "--detector-rdh={{ rdh_version }}"
     - "--detector-subspec={{dd_detector_subspec}}"
