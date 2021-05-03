@@ -23,7 +23,7 @@ roles:
     - name: readout-proxy
       type: pull
       transport: shmem
-      target: "{{ path_to_readout_proxy }}"
+      target: ""
       rateLogging: "{{ fmq_rate_logging }}"
     task:
       load: minimal-dpl-readout-proxy
