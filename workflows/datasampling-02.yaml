@@ -1,0 +1,77 @@
+name: datasampling-02
+vars:
+  dpl_command: >-
+    o2-dpl-raw-proxy -b --session default --dataspec 'x:TST/RAWDATA;dd:FLP/DISTSUBTIMEFRAME/0' --readout-proxy '--channel-config "name=readout-proxy,type=pull,method=connect,address=ipc:///tmp/stf-builder-dpl-pipe-0,transport=shmem,rateLogging=1"' | o2-datasampling-standalone --config {{ qc_config_uri }} --pipeline Dispatcher:2 | o2-dpl-output-proxy -b --session default --dataspec 'x/TST/SMPRAWDATA;dd:FLP/DISTSUBTIMEFRAME/0' --dpl-output-proxy '--channel-config "name=downstream,type=push,method=bind,address=ipc:///tmp/stf-pipe-0,rateLogging=1,transport=shmem"'
+defaults:
+  qc_config_uri: "consul-json://{{ consul_endpoint }}/o2/components/qc/ANY/any/datasampling-02"
+  monitoring_dpl_url: "no-op://"
+  user: "flp"
+  fmq_rate_logging: 0
+  shm_segment_size: 10000000000
+  shm_throw_bad_alloc: false
+roles:
+  - name: "internal-dpl-clock"
+    connect:
+    task:
+      load: datasampling-02-internal-dpl-clock
+  - name: "readout-proxy"
+    connect:
+    - name: from_internal-dpl-clock_to_readout-proxy
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.internal-dpl-clock:from_internal-dpl-clock_to_readout-proxy"
+      rateLogging: "{{ fmq_rate_logging }}"
+    - name: readout-proxy
+      type: pull
+      transport: shmem
+      target: "{{ path_to_readout_proxy }}"
+      rateLogging: "{{ fmq_rate_logging }}"
+    task:
+      load: datasampling-02-readout-proxy
+  - name: "Dispatcher_t0"
+    connect:
+    - name: from_internal-dpl-clock_to_Dispatcher_t0
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.internal-dpl-clock:from_internal-dpl-clock_to_Dispatcher_t0"
+      rateLogging: "{{ fmq_rate_logging }}"
+    - name: from_readout-proxy_to_Dispatcher_t0
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.readout-proxy:from_readout-proxy_to_Dispatcher_t0"
+      rateLogging: "{{ fmq_rate_logging }}"
+    task:
+      load: datasampling-02-Dispatcher_t0
+  - name: "Dispatcher_t1"
+    connect:
+    - name: from_internal-dpl-clock_to_Dispatcher_t1
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.internal-dpl-clock:from_internal-dpl-clock_to_Dispatcher_t1"
+      rateLogging: "{{ fmq_rate_logging }}"
+    - name: from_readout-proxy_to_Dispatcher_t1
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.readout-proxy:from_readout-proxy_to_Dispatcher_t1"
+      rateLogging: "{{ fmq_rate_logging }}"
+    task:
+      load: datasampling-02-Dispatcher_t1
+  - name: "dpl-output-proxy"
+    connect:
+    - name: from_readout-proxy_to_dpl-output-proxy
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.readout-proxy:from_readout-proxy_to_dpl-output-proxy"
+      rateLogging: "{{ fmq_rate_logging }}"
+    - name: from_Dispatcher_t0_to_dpl-output-proxy
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.Dispatcher_t0:from_Dispatcher_t0_to_dpl-output-proxy"
+      rateLogging: "{{ fmq_rate_logging }}"
+    - name: from_Dispatcher_t1_to_dpl-output-proxy
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.Dispatcher_t1:from_Dispatcher_t1_to_dpl-output-proxy"
+      rateLogging: "{{ fmq_rate_logging }}"
+    task:
+      load: datasampling-02-dpl-output-proxy
