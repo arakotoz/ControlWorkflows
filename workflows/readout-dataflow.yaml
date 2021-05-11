@@ -152,7 +152,26 @@ roles:
           trigger: DESTROY
           timeout: 10s
           critical: false
-  - name: odc-shim
+  - name: qc-remote-workflow
+    enabled: "{{ qc_remote_workflow != 'none' }}"
+    constraints:
+      - attribute: machine_type
+        value: qcserver
+    vars:
+      user: qc
+      session_id: "{{ environment_id }}" # we can't use "default" because other workflows might already exist on the same QC server
+    roles:
+      - name: dpl
+        enabled: "{{ qc_remote_workflow != 'none' }}"
+        include: "{{ qc_remote_workflow }}"
+      - name: fairmq-shmmonitor
+        enabled: "{{fmq_cleanup_enabled == 'true'}}"
+        task:
+          load: "fairmq-shmmonitor"
+          trigger: DESTROY
+          timeout: 10s
+          critical: false
+ - name: odc-shim
     enabled: "{{odcshim_enabled == 'true'}}"
     task:
       load: odc-shim
