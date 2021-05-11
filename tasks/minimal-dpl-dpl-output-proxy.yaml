@@ -15,8 +15,8 @@ bind:
     type: push
     transport: shmem
     addressing: ipc
-    rateLogging: "0"
-    global: "downstream-default"
+    rateLogging: "{{ fmq_rate_logging }}"
+    global: "downstream-{{ it }}"
 command:
   shell: true
   log: "{{ log_task_output }}"
