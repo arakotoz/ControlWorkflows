@@ -8,6 +8,7 @@ defaults:
   minimal_dpl_enabled: "false"
   dpl_workflow: "none" # if specified, we use dpl_worfklow to choose what is between STFB and STFS. Otherwise, we fall to the old choice mechanism.
                        # available options: "none", "qc-daq", "minimal-dpl", "tof-compressor"
+  qc_remote_workflow: "none"
   stfb_standalone: "false"
   odc_enabled: "false"
   odcshim_enabled: "false"
