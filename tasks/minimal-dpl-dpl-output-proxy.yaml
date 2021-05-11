@@ -12,6 +12,7 @@ bind:
     transport: shmem
     addressing: ipc
     rateLogging: "{{ fmq_rate_logging }}"
+    global: "downstream-{{ it }}"
 command:
   shell: true
   log: "{{ log_task_output }}"
@@ -24,7 +25,7 @@ command:
     - "--monitoring-backend"
     - "'{{ monitoring_dpl_url }}'"
     - "--session"
-    - "'default'"
+    - "'{{ session_id }}'"
     - "--infologger-severity"
     - "'{{ infologger_severity }}'"
     - "--infologger-mode"
@@ -68,9 +69,9 @@ command:
     - "--fairmq-rate-logging"
     - "'0'"
     - "--fairmq-recv-buffer-size"
-    - "'1000'"
+    - "'4'"
     - "--fairmq-send-buffer-size"
-    - "'1000'"
+    - "'4'"
     - "--forwarding-destination"
     - "'drop'"
     - "--forwarding-policy"
@@ -93,6 +94,8 @@ command:
     - "'0'"
     - "--shm-zero-segment"
     - "'false'"
+    - "--spawners"
+    - "'1'"
     - "--stacktrace-on-signal"
     - "'all'"
     - "--workflow-suffix"
