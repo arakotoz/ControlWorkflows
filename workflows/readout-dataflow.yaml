@@ -180,7 +180,7 @@ roles:
           trigger: DESTROY
           timeout: 10s
           critical: false
- - name: odc-shim
+  - name: odc-shim
     enabled: "{{odcshim_enabled == 'true'}}"
     task:
       load: odc-shim
