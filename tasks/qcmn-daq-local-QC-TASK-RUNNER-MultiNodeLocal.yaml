@@ -76,7 +76,7 @@ command:
     - "--forwarding-policy"
     - "'dangling'"
     - "--host"
-    - "'{{ it }}'"
+    - "'piotr-ostack'"
     - "--local"
     - "--pipeline"
     - "''"
