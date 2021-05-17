@@ -11,7 +11,7 @@ wants:
   cpu: 0.01
   memory: 1
 bind:
-  - name: from_Dispatcher_to_internal-dpl-injected-dummy-sink
+  - name: from_Dispatcher_to_QC-TASK-RUNNER-MultiNodeLocal
     type: push
     transport: shmem
     addressing: ipc
@@ -76,7 +76,7 @@ command:
     - "--forwarding-policy"
     - "'dangling'"
     - "--host"
-    - "'piotr-ostack'"
+    - "'alio2-cr1-mvs01'"
     - "--local"
     - "--pipeline"
     - "''"
