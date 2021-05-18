@@ -3,8 +3,8 @@ defaults:
   log_task_output: none
   _module_cmdline: >-
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load O2 QualityControl Control-OCCPlugin &&
-    {{ dpl_command }} | gdb -ex "run" -ex "thread apply all bt full" -batch o2-itsmft-stf-decoder-workflow
-  _plain_cmdline: "source /etc/profile.d/o2.sh && {{ dpl_command }} | gdb -ex \"run\" -ex \"thread apply all bt full\" -batch o2-itsmft-stf-decoder-workflow"
+    {{ dpl_command }} | o2-itsmft-stf-decoder-workflow
+  _plain_cmdline: "source /etc/profile.d/o2.sh && {{ dpl_command }} | o2-itsmft-stf-decoder-workflow"
 control:
   mode: "fairmq"
 wants:
