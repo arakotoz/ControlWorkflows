@@ -1,0 +1,63 @@
+{
+  "qc": {
+    "config": {
+      "database": {
+        "implementation": "CCDB",
+        "host": "alio2-cr1-hv-qcdb1:8083",
+        "username": "not_applicable",
+        "password": "not_applicable",
+        "name": "not_applicable"
+      },
+      "Activity": {
+        "number": "42",
+        "type": "2"
+      },
+      "monitoring": {
+        "url": "influxdb-unix:///tmp/telegraf.sock"
+      },
+      "consul": {
+        "url": "alio2-cr1-flp148:8500"
+      },
+      "conditionDB": {
+        "url": "alio2-cr1-flp148:8083"
+      }
+    },
+    "tasks": {
+      "QcTaskMCHDigits": {
+        "active": "true",
+        "className": "o2::quality_control_modules::muonchambers::PhysicsTaskDigits",
+        "moduleName": "QcMuonChambers",
+        "detectorName": "MCH",
+        "cycleDurationSeconds": "60",
+        "maxNumberCycles": "-1",
+        "dataSource": {
+          "type": "direct",
+          "query": "digits:MCH/DIGITS;orbits:MCH/ORBITS"
+        },
+        "location": "local",
+        "localMachines": [
+          "epn"
+        ],
+        "localControl": "odc",
+        "remoteMachine": "alio2-cr1-qc01",
+        "remotePort": "47701"
+      }
+    },
+    "checks": {
+      "QcCheckMCHPhysics": {
+        "active": "true",
+        "className": "o2::quality_control_modules::muonchambers::PhysicsCheck",
+        "moduleName": "QcMuonChambers",
+        "policy": "OnAll",
+        "dataSource": [
+          {
+            "type": "Task",
+            "name": "QcTaskMCHDigits",
+            "MOs": "all"
+          }
+        ]
+      }
+    }
+  },
+  "dataSamplingPolicies": []
+}
