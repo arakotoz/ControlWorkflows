@@ -76,7 +76,7 @@ command:
     - "--forwarding-policy"
     - "'dangling'"
     - "--pipeline"
-    - "'tof-compressor-0:6'"
+    - "'tof-compressor-0:3'"
     - "--readers"
     - "'1'"
     - "--severity"
