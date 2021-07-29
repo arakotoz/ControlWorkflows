@@ -4,7 +4,7 @@ defaults:
   _module_cmdline: >-
     source /etc/profile.d/modules.sh && MODULEPATH={{ modulepath }} module load O2 QualityControl Control-OCCPlugin &&
     {{ dpl_command }} | /home/flp/heaptrack/build/bin/heaptrack o2-qc
-  _plain_cmdline: "source /etc/profile.d/o2.sh && {{ dpl_command }} | /home/flp/heaptrack/build/bin/heaptrack o2-qc"
+  _plain_cmdline: "source /etc/profile.d/o2.sh && {{ dpl_command }} | /home/flp/heaptrack/build/bin/heaptrack --output-file /tmp/dispatcher o2-qc"
 control:
   mode: "fairmq"
 wants:
