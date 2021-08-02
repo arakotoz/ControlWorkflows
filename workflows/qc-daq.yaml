@@ -54,7 +54,7 @@ roles:
       rateLogging: "{{ fmq_rate_logging }}"
     - name: from_Dispatcher_to_QC-TASK-RUNNER-dataDistribution
       type: pull
-      transport: shmem
+      transport: zeromq
       target: "{{ Parent().Path }}.Dispatcher:from_Dispatcher_to_QC-TASK-RUNNER-dataDistribution"
       rateLogging: "{{ fmq_rate_logging }}"
     task:
